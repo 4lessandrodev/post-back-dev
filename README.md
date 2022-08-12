@@ -6,7 +6,7 @@ A simple way to test your post back
 
 ```sh
 
-$ curl https://my-dev-post-back.herokuapp.com
+$ curl https://my-dev-post-back.herokuapp.com | jq '.'
 
 ```
 
@@ -17,7 +17,7 @@ $ curl https://my-dev-post-back.herokuapp.com
 
 $ curl -X POST https://my-dev-post-back.herokuapp.com/your-key \
 -H "Content-Type: application/json" \
--d '{ "data": "hello world" }'
+-d '{ "data": "hello world" }' | jq '.'
 
 ```
 
@@ -26,6 +26,6 @@ $ curl -X POST https://my-dev-post-back.herokuapp.com/your-key \
 
 ```sh
 
-$ curl https://my-dev-post-back.herokuapp.com/your-key
+$ curl https://my-dev-post-back.herokuapp.com/your-key | jq '.'
 
 ```
