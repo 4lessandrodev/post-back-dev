@@ -6,16 +6,16 @@ A simple way to test your post back
 
 ```sh
 
-$ curl https://my-dev-post-back.herokuapp.com
+$ curl https://postback-4dev.onrender.com
 
 ```
 
 - Call the public end point to save your data
-- Provide any string as param to your key
+- Provide any string as param to your identify your temp database
 
 ```sh
 
-$ curl -X POST https://my-dev-post-back.herokuapp.com/your-key \
+$ curl -X POST https://postback-4dev.onrender.com/your-id \
 -H "Content-Type: application/json" \
 -d '{ "data": "hello world" }'
 
@@ -26,6 +26,6 @@ $ curl -X POST https://my-dev-post-back.herokuapp.com/your-key \
 
 ```sh
 
-$ curl https://my-dev-post-back.herokuapp.com/your-key
+$ curl https://postback-4dev.onrender.com/your-id
 
 ```
