@@ -1,13 +1,13 @@
 import Express from "express";
-import BodyParser from "body-parser";
 import MemoryCache from "memory-cache";
 import cors from 'cors';
 import helmet from "helmet";
 const FIVE_MINUTES = 1000 * 60 * 5;
 const app = Express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT ?? 3000;
+const DB = [];
 
-app.use(BodyParser.json());
+app.use(Express.json());
 app.use(cors({ origin: '*' }));
 app.use(helmet());
 
@@ -18,7 +18,11 @@ app.get('/', (_, res) => {
 app.post('/:token', (req, res) => {
     const { token } = req['params'];
     try {
-        MemoryCache.put(token, req.body, FIVE_MINUTES);
+        const payload = req?.['body'] ?? { body: "empty" };
+        const cacheDb = MemoryCache.get(token);
+        const db = Array.isArray(cacheDb) ? cacheDb : DB;
+        db.push({ payload: payload, createdAt: new Date().toISOString() });
+        MemoryCache.put(token, db, FIVE_MINUTES);
         return res.send('ok');
     } catch (error) {
         return res.send('fail');
