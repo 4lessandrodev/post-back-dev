@@ -9,7 +9,8 @@
   "type": "module",
   "scripts": {
     "start": "node index",
-    "dev": "env-cmd node index"
+    "dev": "env-cmd node index",
+    "build": "echo building..."
   },
   "dependencies": {
     "cors": "^2.8.5",
