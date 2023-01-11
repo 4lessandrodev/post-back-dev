@@ -11,7 +11,8 @@ $ curl https://postback-4dev.onrender.com
 ```
 
 - Call the public end point to save your data
-- Provide any string as param to your identify your temp database
+- Provide any string as param to identify your temp database
+- Body must be json object
 
 ```sh
 
