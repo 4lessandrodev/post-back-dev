@@ -5,19 +5,19 @@ import helmet from "helmet";
 const FIVE_MINUTES = 1000 * 60 * 5;
 const app = Express();
 const PORT = process.env.PORT ?? 3000;
-const DB = [];
 
 app.use(Express.json());
 app.use(cors({ origin: '*' }));
 app.use(helmet());
 
 app.get('/', (_, res) => {
-    return res.send('ok');
+    return res.status(200).json({ ok: true, time: new Date().toISOString() });
 });
 
 app.post('/:token', (req, res) => {
     const { token } = req['params'];
     try {
+        const DB = [];
         const payload = req?.['body'] ?? { body: "empty" };
         const cacheDb = MemoryCache.get(token);
         const db = Array.isArray(cacheDb) ? cacheDb : DB;
