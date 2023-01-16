@@ -23,9 +23,9 @@ app.post('/:token', (req, res) => {
         const db = Array.isArray(cacheDb) ? cacheDb : DB;
         db.push({ payload: payload, createdAt: new Date().toISOString() });
         MemoryCache.put(token, db, FIVE_MINUTES);
-        return res.send('ok');
+        return res.status(200).json({ saved: true });
     } catch (error) {
-        return res.send('fail');
+        return res.status(400).json({ saved: false });
     }
 });
 
