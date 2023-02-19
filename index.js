@@ -10,11 +10,12 @@ const PORT = process.env.PORT ?? 3000;
 app.use(Express.json());
 app.use(cors({ origin: '*' }));
 app.use(helmet());
-app.use(blockDDoS({ attempts: 2 }));
 
 app.get('/', (_, res) => {
     return res.status(200).json({ ok: true, time: new Date().toISOString() });
 });
+
+app.use(blockDDoS({ attempts: 2 }));
 
 app.get('/info/ip', (req, res) => {
     const value = req.socket?.remoteAddress ?? req?.headers['x-forwarded-for'] ?? req?.ip;
