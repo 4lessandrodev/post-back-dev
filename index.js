@@ -16,9 +16,9 @@ app.get('/', (_, res) => {
 });
 
 app.get('/info/ip', (req, res) => {
-    const headersIp = request?.headers['x-forwarded-for'];
+    const headersIp = req?.headers['x-forwarded-for'];
     const ipStr = Array.isArray(headersIp) ? headersIp.toString() : headersIp ?? '';
-    const ip = ipStr?.replace(/\s/g, '')?.split(',')?.[0] ?? request?.ip ?? request.socket?.remoteAddress;
+    const ip = ipStr?.replace(/\s/g, '')?.split(',')?.[0] ?? req?.ip ?? req.socket?.remoteAddress;
     const value = (ip === '::1') ? '127.0.0.1' : ip ?? '0.0.0.0';
     return res.status(200).json({ ip: value });
 });
