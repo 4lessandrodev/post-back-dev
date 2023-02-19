@@ -18,7 +18,7 @@ app.get('/', (_, res) => {
 app.use(blockDDoS({ attempts: 2 }));
 
 app.get('/info/ip', (req, res) => {
-    const value = req?.ip ?? req?.headers['x-forwarded-for']?.replace(/\s/g, '')?.split(',')?.[0] ?? req.socket?.remoteAddress;
+    const value = req?.headers['x-forwarded-for']?.replace(/\s/g, '')?.split(',')?.[0] ?? req?.ip ?? req.socket?.remoteAddress;
     const ip = (value === '::1') ? '127.0.0.1' : value ?? '0.0.0.0';
     return res.status(200).json({ ip });
 });
