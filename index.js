@@ -2,6 +2,7 @@ import Express from "express";
 import MemoryCache from "memory-cache";
 import cors from 'cors';
 import helmet from "helmet";
+import { blockDDoS } from "block-ddos";
 const FIVE_MINUTES = 1000 * 60 * 5;
 const app = Express();
 const PORT = process.env.PORT ?? 3000;
@@ -9,9 +10,16 @@ const PORT = process.env.PORT ?? 3000;
 app.use(Express.json());
 app.use(cors({ origin: '*' }));
 app.use(helmet());
+app.use(blockDDoS({ attempts: 2 }));
 
 app.get('/', (_, res) => {
     return res.status(200).json({ ok: true, time: new Date().toISOString() });
+});
+
+app.get('/info/ip', (req, res) => {
+    const value = req.socket?.remoteAddress ?? req?.headers['x-forwarded-for'] ?? req?.ip;
+    const ip = (value === '::1') ? '127.0.0.1' : value ?? '0.0.0.0';
+    return res.status(200).json({ ip });
 });
 
 app.post('/:token', (req, res) => {
