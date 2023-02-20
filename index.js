@@ -24,7 +24,16 @@ app.get('/info/ip', (req, res) => {
 });
 
 app.get('/info/request', (req, res) => {
-    return res.status(200).json({ req });
+    return res.status(200).json({ 
+        protocol: req.protocol, 
+        headers: req.headers, 
+        url: req.baseUrl, 
+        originalUrl: req.originalUrl,
+        params: req.params,
+        hostname: req.hostname,
+        query: req.query,
+        params: req.params
+    });
 })
 
 app.use(blockDDoS({ attempts: 2 }));
