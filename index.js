@@ -33,7 +33,8 @@ app.get('/info/request', (req, res) => {
         hostname: req.hostname,
         query: req.query,
         params: req.params,
-        path: req.path
+        path: req.path,
+        cookies: req.headers?.cookie ?? null
     });
 })
 
