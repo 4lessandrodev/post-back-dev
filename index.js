@@ -23,6 +23,10 @@ app.get('/info/ip', (req, res) => {
     return res.status(200).json({ ip: value });
 });
 
+app.get('/info/request', (req, res) => {
+    return res.status(200).json({ req });
+})
+
 app.use(blockDDoS({ attempts: 2 }));
 
 app.post('/:token', (req, res) => {
