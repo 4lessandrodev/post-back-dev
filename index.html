@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+
+	<body>
+		<form action="#" method="get" id="form" style="display: flex;width: 100%;">
+			<input type="text" name="method" id="method" value="GET">
+			<input type="text" name="url" id="url" value="https://postback-4dev.onrender.com/info/request" style="display: flex;width: 100%;">
+			<input type="submit" value="enviar">
+		</form>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+	<script>
+		const form = document.getElementById("form");
+		const url = document.getElementById("url");
+		const method = document.getElementById("method");
+		form.addEventListener("submit", async (e) => {
+			e.preventDefault();
+			try {
+	
+				const result = await axios({
+					url:url.value,
+					method:"GET",
+					withCredentials: true
+				});
+
+				const payload = await result.data;
+				document.write(JSON.stringify(payload))
+			} catch (error) {
+				console.log(error);
+				alert(error.message);
+			}
+		}) 
+	</script>
+
+</html>
