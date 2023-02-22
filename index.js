@@ -8,7 +8,7 @@ const app = Express();
 const PORT = process.env.PORT ?? 3000;
 
 app.use(Express.json());
-app.use(cors({ origin: '*', credentials: true }));
+app.use(cors({ origin: ["https://*","http://*"], credentials: true }));
 app.use(helmet());
 
 app.get('/', (_, res) => {
