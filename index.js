@@ -26,7 +26,7 @@ app.get('/info/ip', (req, res) => {
 });
 
 app.get('/info/index', (req, res) => {
-    const html = fs.readFileSync(resolve(__dirname, 'index.html'));
+    const html = fs.readFileSync(resolve('index.html'));
     res.set('Content-Type', 'text/html');
     return res.send(html);
 });
