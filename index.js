@@ -6,6 +6,8 @@ import { blockDDoS } from "block-ddos";
 const FIVE_MINUTES = 1000 * 60 * 5;
 const app = Express();
 const PORT = process.env.PORT ?? 3000;
+import fs from "fs";
+import { resolve } from "path";
 
 app.use(Express.json());
 app.use(cors({ origin: function (origin, callback){ return callback(null, true) }, credentials: true }));
@@ -21,6 +23,12 @@ app.get('/info/ip', (req, res) => {
     const ip = ipStr?.replace(/\s/g, '')?.split(',')?.[0] ?? req?.ip ?? req.socket?.remoteAddress;
     const value = (ip === '::1') ? '127.0.0.1' : ip ?? '0.0.0.0';
     return res.status(200).json({ ip: value });
+});
+
+app.get('info/index', (req, res) => {
+    const html = fs.readFileSync(resolve(__dirname, 'index.html'));
+    res.set('Content-Type', 'text/html');
+    return res.send(html);
 });
 
 app.get('/info/request', (req, res) => {
