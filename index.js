@@ -7,7 +7,7 @@ const FIVE_MINUTES = 1000 * 60 * 5;
 const app = Express();
 const PORT = process.env.PORT ?? 3000;
 import fs from "fs";
-import { resolve } from "path";
+import path from "path";
 
 app.use(Express.json());
 app.use(cors({ origin: function (origin, callback){ return callback(null, true) }, credentials: true }));
@@ -26,7 +26,7 @@ app.get('/info/ip', (req, res) => {
 });
 
 app.get('/info/index', (req, res) => {
-    const html = fs.readFileSync(resolve('index.html'));
+    const html = fs.readFileSync(path.resolve('index.html'));
     res.set('Content-Type', 'text/html');
     return res.send(html);
 });
