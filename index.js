@@ -25,7 +25,7 @@ app.get('/info/ip', (req, res) => {
     return res.status(200).json({ ip: value });
 });
 
-app.get('info/index', (req, res) => {
+app.get('/info/index', (req, res) => {
     const html = fs.readFileSync(resolve(__dirname, 'index.html'));
     res.set('Content-Type', 'text/html');
     return res.send(html);
