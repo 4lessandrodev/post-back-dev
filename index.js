@@ -11,13 +11,6 @@ app.use(Express.json());
 app.use(cors({ origin: '*', credentials: true }));
 app.use(helmet());
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
-
 app.get('/', (_, res) => {
     return res.status(200).json({ ok: true, time: new Date().toISOString() });
 });
