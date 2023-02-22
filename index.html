@@ -14,24 +14,26 @@
 			<input type="text" name="url" id="url" value="https://postback-4dev.onrender.com/info/request" style="display: flex;width: 100%;">
 			<input type="submit" value="enviar">
 		</form>
+		<div id="payload"></div>
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 	<script>
 		const form = document.getElementById("form");
 		const url = document.getElementById("url");
 		const method = document.getElementById("method");
+		const el = document.getElementById("payload");
 		form.addEventListener("submit", async (e) => {
 			e.preventDefault();
 			try {
 	
 				const result = await axios({
-					url:url.value,
-					method:"GET",
+					url: url.value,
+					method: method.value,
 					withCredentials: true
 				});
 
 				const payload = await result.data;
-				document.write(JSON.stringify(payload))
+				el.innerHTML = `<div>${JSON.stringify(payload, null, 2)}</div>`
 			} catch (error) {
 				console.log(error);
 				alert(error.message);
