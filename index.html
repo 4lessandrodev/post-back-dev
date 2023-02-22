@@ -9,30 +9,33 @@
 	</head>
 
 	<body>
-		<form action="#" method="get" id="form" style="display: flex;width: 100%;">
+		<div id="form" style="display: flex;width: 100%;">
 			<input type="text" name="method" id="method" value="GET">
 			<input type="text" name="url" id="url" value="https://postback-4dev.onrender.com/info/request" style="display: flex;width: 100%;">
-			<input type="submit" value="enviar">
-		</form>
-		<div id="payload"></div>
+			<input type="submit" value="enviar" id="submit">
+		</div>
 	</body>
-	<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 	<script>
-		const form = document.getElementById("form");
+		const btn = document.getElementById("submit");
 		const url = document.getElementById("url");
 		const method = document.getElementById("method");
-		const el = document.getElementById("payload");
-		form.addEventListener("submit", async (e) => {
+		btn.addEventListener("click", async (e) => {
 			e.preventDefault();
 			try {
 	
-				const result = await axios({
-					url: url.value,
+				const result = await fetch(url.value, {
 					method: method.value,
-					withCredentials: true
+					headers:{
+						"Content-Type": "application/json",
+						"withCredentials": true,
+						"Accept": "application/json"
+					},
+					credentials: "include",
+					mode:"cors"
 				});
 
-				const payload = await result.data;
+				const payload = await result.json();
+				console.log(payload);
 				el.innerHTML = `<div>${JSON.stringify(payload, null, 2)}</div>`
 			} catch (error) {
 				console.log(error);
